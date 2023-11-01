@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weboldal</title>
+    
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw_i3_t0dhJ2RBL3SAd6RpSUWYHa1cSyE&libraries=drawing&callback=initMap">
+</script>
+    <script  src="distancess.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body onload="initMap()">
+    <header>
+        <h1>Geo térkép</h1>
+    </header>
+    <nav>
+       <!-- <a href="#home">Főoldal</a> -->
+        <a href="#geography">Földrajz</a>
+        <a href="#stars">Csillag</a>
+    </nav>
+   <!--
+    <div class="content" id="home">
+        <p><h2>Üdvözöllek a weboldalon</h2></p>
+       
+        <gmp-map center="47.85395050048828,17.284271240234375" zoom="14" map-id="DEMO_MAP_ID">
+            <gmp-advanced-marker position="47.85395050048828,17.284271240234375" title="My location">
+            </gmp-advanced-marker>
+          </gmp-map>
+    </div>
+    -->
+
+
+
+    <div class="content" id="geography">
+        <h3>Földrajz Pontok közti távolság</h3>
+        <!-- Ide helyezd el a földrajz tartalmat -->
+        
+            <div id="inputPlace">
+                        <!-- User input -->
+        <input type="text" id="inputStart" placeholder="Start location">
+        <input type="text" id="inputEnd" placeholder="End location">
+        <button onclick="getDistance()">Calculate</button>
+        <!-- Output -->
+        <div id="output"></div>
+
+        <!-- Google Map -->
+        <div id="map"></div>
+    </div>
+</body>
+</html>
