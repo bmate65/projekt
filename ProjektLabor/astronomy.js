@@ -8,8 +8,18 @@
         const applicationSecret = '1c354b208955906551e14cf592033cd2d3abc5c51c9462caadce0a221306fbfca88e208ba027b2dd87d4e2a1b9751f4b4c99b2cfea73f10f545c3cdd62201dac9317d463a39e7d13f0adea16df927981393f71495ee5acdde6747de007f8aa89ccdeb8d50d02be4f45be045fde26e700';
 
         const authString = btoa(`${applicationID}:${applicationSecret}`);
+
         var nameValue = document.getElementById("astronomy").value;
-        fetch('https://api.astronomyapi.com/api/v2/bodies/positions/'+nameValue+'?longitude=-84.39733&latitude=33.775867&elevation=1&from_date=2023-10-30&to_date=2023-10-30&time=14%3A04%3A06', {
+        const t = new Date();
+        var timeC = t.toLocaleTimeString();
+        timeC.replace(":","%3A");
+        let d = new Date()
+        let dateC = d.toISOString().split('T')[0];
+        let latitudeC = document.getElementById("latitude").value;
+        let longitudeC = document.getElementById("longitude").value;
+        let elevationC = document.getElementById("elevation").value;
+
+        fetch('https://api.astronomyapi.com/api/v2/bodies/positions/'+nameValue+'?longitude='+longitudeC+'&latitude='+latitudeC+'&elevation='+elevationC+'&from_date='+dateC+'&to_date='+dateC+'&time='+timeC, {
             method: 'GET',
             headers: {
                 'Authorization': `Basic ${authString}`
@@ -20,6 +30,7 @@
             responseText.textContent = JSON.stringify(data, null, 2);
             object = JSON.parse(document.getElementById('response').textContent);
             display();
+            lathatoe();
         })
         .catch(error => {
             responseText.textContent = 'Hiba: ' + error.message;
@@ -78,5 +89,13 @@
         c1.clearRect(0,0,400,400);
         var c2 = document.getElementById('Astronomy2').getContext("2d");
         c2.clearRect(0,0,400,400);
+    }
+    function lathatoe(){
+        var Altitude = object.data.table.rows[0].cells[0].position.horizontal.altitude.degrees;
+        if (Altitude > 0) {
+            document.getElementById("lathatoe").innerHTML = "<h2>Látható<h2>";
+        } else {
+            document.getElementById("lathatoe").innerHTML = "<h2>Nem látható<h2>";
+        }
     }
     //]]>
