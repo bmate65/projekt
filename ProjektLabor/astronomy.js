@@ -98,4 +98,12 @@
             document.getElementById("lathatoe").innerHTML = "<h2>Nem látható<h2>";
         }
     }
+
+    function addStars(){
+        if (document.getElementById("astronomy").value =="Star") {
+            document.getElementById("csillagok").innerHTML = '<select id="Csillagok" name="Csillagok"><option value="Sun">Nap</option><option value="Moon">Hold</option><option value="Mercury">Merkúr</option><option value="Venus">Vénusz</option></select><br>';
+        }else{
+            document.getElementById("csillagok").innerHTML = "";
+        }
+    }
     //]]>
