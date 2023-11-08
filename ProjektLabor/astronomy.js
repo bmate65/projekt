@@ -1,9 +1,8 @@
 //<![CDATA[
-    const fetchDataButton = document.getElementById('FetchData');
     const responseText = document.getElementById('response');
     var object;
 
-    fetchDataButton.addEventListener('click', () => {
+    function DataFetching(){
         const applicationID = '3cb5b2ff-1fca-43bc-bc7a-a4a7fc9a356d';
         const applicationSecret = '1c354b208955906551e14cf592033cd2d3abc5c51c9462caadce0a221306fbfca88e208ba027b2dd87d4e2a1b9751f4b4c99b2cfea73f10f545c3cdd62201dac9317d463a39e7d13f0adea16df927981393f71495ee5acdde6747de007f8aa89ccdeb8d50d02be4f45be045fde26e700';
 
@@ -35,7 +34,7 @@
         .catch(error => {
             responseText.textContent = 'Hiba: ' + error.message;
         });
-    })
+    }
     function display() {
         clear();
         var drawAzimuth = object.data.table.rows[0].cells[0].position.horizontal.azimuth.degrees;
