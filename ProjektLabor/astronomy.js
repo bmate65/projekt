@@ -1,9 +1,9 @@
 //<![CDATA[
-    const fetchDataButton = document.getElementById('FetchData');
     const responseText = document.getElementById('response');
     var object;
 
-    fetchDataButton.addEventListener('click', () => {
+    function DataFetching(){
+        if(document.getElementById("astronomy").value != "Star"){
         const applicationID = '3cb5b2ff-1fca-43bc-bc7a-a4a7fc9a356d';
         const applicationSecret = '1c354b208955906551e14cf592033cd2d3abc5c51c9462caadce0a221306fbfca88e208ba027b2dd87d4e2a1b9751f4b4c99b2cfea73f10f545c3cdd62201dac9317d463a39e7d13f0adea16df927981393f71495ee5acdde6747de007f8aa89ccdeb8d50d02be4f45be045fde26e700';
 
@@ -13,7 +13,7 @@
         const t = new Date();
         var timeC = t.toLocaleTimeString();
         timeC.replace(":","%3A");
-        let d = new Date()
+        let d = new Date();
         let dateC = d.toISOString().split('T')[0];
         let latitudeC = document.getElementById("latitude").value;
         let longitudeC = document.getElementById("longitude").value;
@@ -35,7 +35,24 @@
         .catch(error => {
             responseText.textContent = 'Hiba: ' + error.message;
         });
-    })
+        }else{
+            var name = document.getElementById('Csillagok').value;
+            $.ajax({
+                method: 'GET',
+                url: 'https://api.api-ninjas.com/v1/stars?name=' + name,
+                headers: { 'X-Api-Key': 'vHLde9Uzlap8vNokJq92rw==SZZqdSFE50w3UUI1'},
+                contentType: 'application/json',
+                success: function(result) {
+                    console.log(result);
+                },
+                error: function ajaxError(jqXHR) {
+                    console.error('Error: ', jqXHR.responseText);
+                }
+            });
+        }
+    }
+
+
     function display() {
         clear();
         var drawAzimuth = object.data.table.rows[0].cells[0].position.horizontal.azimuth.degrees;
@@ -101,7 +118,8 @@
 
     function addStars(){
         if (document.getElementById("astronomy").value =="Star") {
-            document.getElementById("csillagok").innerHTML = '<select id="Csillagok" name="Csillagok"><option value="Sun">Nap</option><option value="Moon">Hold</option><option value="Mercury">Merkúr</option><option value="Venus">Vénusz</option></select><br>';
+            var CsillagokString = '<label for="Csillagok">Kérlek válassz csillagot: </label><input type="text" id="Csillagok" name="Csillagok" value="Vega">';
+            document.getElementById("csillagok").innerHTML = CsillagokString;
         }else{
             document.getElementById("csillagok").innerHTML = "";
         }
