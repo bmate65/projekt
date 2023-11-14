@@ -4,9 +4,9 @@
 
     function DataFetching(){
         if(document.getElementById("astronomy").value != "Star"){
-        const applicationID = '3cb5b2ff-1fca-43bc-bc7a-a4a7fc9a356d';
+        const applicationID = '3cb5b2ff-1fca-43bc-bc7a-a4a7fc9a356d'; //AstronomyAPI ID (felhasználókód)
         const applicationSecret = '1c354b208955906551e14cf592033cd2d3abc5c51c9462caadce0a221306fbfca88e208ba027b2dd87d4e2a1b9751f4b4c99b2cfea73f10f545c3cdd62201dac9317d463a39e7d13f0adea16df927981393f71495ee5acdde6747de007f8aa89ccdeb8d50d02be4f45be045fde26e700';
-
+                                    //applicationSecret = AstronomyAPI jelszo, weboldal: AstronomyAPI
         const authString = btoa(`${applicationID}:${applicationSecret}`);
 
         var nameValue = document.getElementById("astronomy").value;
@@ -40,7 +40,7 @@
             $.ajax({
                 method: 'GET',
                 url: 'https://api.api-ninjas.com/v1/stars?name=' + name,
-                headers: { 'X-Api-Key': 'vHLde9Uzlap8vNokJq92rw==SZZqdSFE50w3UUI1'},
+                headers: { 'X-Api-Key': 'vHLde9Uzlap8vNokJq92rw==SZZqdSFE50w3UUI1'},// API ninjas kulcs
                 contentType: 'application/json',
                 success: function(result) {
                     console.log(result);
