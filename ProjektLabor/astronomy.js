@@ -1,6 +1,7 @@
 //<![CDATA[
     const responseText = document.getElementById('response');
     var object;
+    var csillagokAlekerdezeshez;
 
     function DataFetching(){
         if(document.getElementById("astronomy").value != "Star"){
@@ -15,8 +16,8 @@
         timeC = timeC.replaceAll(":","%3A");
         let d = new Date();
         let dateC = d.toISOString().split('T')[0];
-        let latitudeC = document.getElementById("latitude").value;
-        let longitudeC = document.getElementById("longitude").value;
+        let latitudeC = latitudeG;
+        let longitudeC = longitudeG;
         let elevationC = document.getElementById("elevation").value;
 
         $.ajax({
@@ -131,8 +132,8 @@
                 Declination2[i] = Number(Declination1[(i*2)].slice(0,Declination1[(i*2)].length -1));
                 }
             var latitudeStar = Declination2[0] + Declination2[1]/60 + Declination2[2]/3600;
-            var longitudePerson= document.getElementById("longitude").value;
-            var latitudePerson= document.getElementById("latitude").value;
+            var longitudePerson= longitudeG;
+            var latitudePerson= latitudeG;
             var latitudeDifference = latitudeStar - latitudePerson;
             var longitudeDifference = longitudeStar - longitudePerson;
             latitudeDifference = latitudeDifference * Math.PI/180;
@@ -227,10 +228,30 @@
 
     function addStars(){
         if (document.getElementById("astronomy").value =="Star") {
-            var CsillagokString = '<label for="Csillagok">Kérlek válassz csillagot: </label><input type="text" id="Csillagok" name="Csillagok" value="Vega">';
-            document.getElementById("csillagok").innerHTML = CsillagokString;
+            $.ajax({
+                method: 'GET',
+                url: 'https://api.api-ninjas.com/v1/stars?&min_apparent_magnitude=18.25',
+                headers: { 'X-Api-Key': 'vHLde9Uzlap8vNokJq92rw==SZZqdSFE50w3UUI1'},// API ninjas kulcs
+                contentType: 'application/json',
+                success: function(result) {
+                    csillagokAlekerdezeshez = result;
+                    input();
+                },
+                error: function ajaxError(jqXHR) {
+                    console.error('Error: ', jqXHR.responseText);
+                }
+            });
         }else{
             document.getElementById("csillagok").innerHTML = "";
         }
+    }
+
+    function input() {
+        var CsillagokString = '<label for="Csillagok">Kérlek válassz csillagot: </label><select id="Csillagok" name="Csillagok">';
+        for (let index = 0; index < 30; index++) {
+            CsillagokString += '<option value="'+JSON.stringify(csillagokAlekerdezeshez[index].name).slice(1,-1)+'">'+JSON.stringify(csillagokAlekerdezeshez[index].name).slice(1,-1)+'</option>';
+        }
+        CsillagokString += '</select>';
+        document.getElementById("csillagok").innerHTML = CsillagokString;
     }
     //]]>
