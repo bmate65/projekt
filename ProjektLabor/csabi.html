@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Térkép alkalmazás</title>
+  
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2LTjOeJaA2UhtfnudUANNtE_C9N4l0ec&callback=initMap" async defer></script>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="map.css">
+  
+</head>
+<body>
+  <header>
+    <h1>Grafikon rajzolása térképről</h1>
+</header>
+<br>
+  <div id="map"></div>
+  <br>
+  
+
+  <div class="content" id="result"></div>
+  <button id="elevationButton" onclick="requestElevation()">Távolság közti pontok magassága grafikonon</button> 
+  
+
+  
+
+  
+</body>
+</html>
